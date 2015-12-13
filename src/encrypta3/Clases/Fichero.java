@@ -16,10 +16,6 @@ public class Fichero {
     public Fichero(String nombreFichero) {
         this.nombreFichero = nombreFichero;
     }
-
-    
-
-    
     //CREACION O LECTURA DEL FICHERO ALEATORIO E INSERCION DE ARRAYS
     
     public void GuardaCreaFicheroClaves(int aNumEm[][]){
@@ -86,6 +82,7 @@ public class Fichero {
             }
         }
     }
+    
     public void guardaFicheroEncriptado(String nombreFichero,String texto){
         FileOutputStream fos=null;
         DataOutputStream dos=null;
@@ -109,6 +106,7 @@ public class Fichero {
             }
         }            
     }
+    
     public String cargaFicheroEncriptado(String nombreFichero){
         File f=null;
         FileInputStream fis=null;
@@ -175,5 +173,4 @@ public class Fichero {
         }
         return outPut;
     }
-    
 }

@@ -146,24 +146,6 @@ public class Encryptacion {
         
         return outPut;
     }   //ADDICION DE LA CLAVE
-    private String intToChar2a2(String imput){
-        String salida="";
-        for (int i = 0; i < imput.length()-1; i++) {
-            String temp="";
-            temp+=imput.charAt(i);
-            temp+=imput.charAt(i+1);
-            salida+=((char)(int)Integer.valueOf(temp));
-            temp="";
-            }
-        return salida;
-    }
-    private String charToInt(String imput){
-        String salida="";
-        for (int i = 0; i < imput.length(); i++) {
-            salida+=(int)imput.charAt(i);
-            }
-        return salida;
-    }
      
     //DESENCRIPTACION
     public String desencripta(String tEncriptado) throws Exception{
@@ -263,14 +245,6 @@ public class Encryptacion {
             
         }
         return false;
-    }
-    
-    public int containsguion(String imput){
-        for (int i = 0; i < imput.length(); i++) {
-            if(imput.charAt(i)=='-')
-                return i;
-        }
-        return 0;
     }
     
     public void guardarClavePublica(){

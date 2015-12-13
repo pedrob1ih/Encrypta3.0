@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package encrypta3;
+package encrypta3.GUI;
 
 import encrypta3.Clases.Encryptacion;
 
@@ -119,11 +119,7 @@ public class MensajesJPanel extends javax.swing.JPanel {
         }
         else{ // si no lo esta, lo encripta
             String encriptado=e.encripta(this.TAEntradaUsuarioj.getText());
-            if(e.containsguion(encriptado)!=0){
-                    this.TASalida.setText(String.valueOf(e.containsguion(encriptado)));
-                }
-                else
-                    this.TASalida.setText(encriptado);
+            this.TASalida.setText(encriptado);
             
         }
     }//GEN-LAST:event_convertirJButtonActionPerformed

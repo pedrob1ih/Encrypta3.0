@@ -1,4 +1,4 @@
-package encrypta3;
+package encrypta3.GUI;
 
 import encrypta3.Clases.Encryptacion;
 

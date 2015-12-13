@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package encrypta3;
+package encrypta3.GUI;
 
 /**
  *
@@ -44,7 +44,6 @@ public class Encrita3_GUI extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setFocusCycleRoot(false);
         setMinimumSize(new java.awt.Dimension(5, 5));
-        setPreferredSize(new java.awt.Dimension(680, 590));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         ArchivoMBar.setText("Archivo");
