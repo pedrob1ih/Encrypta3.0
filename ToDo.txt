@@ -1,0 +1,9 @@
+mejorar el metodo isEncript
+
+hacer emcriptar en hilos
+	cogiendo un subString y encriptando cada parte en un hilo y de alguna manera cada caracter tiene q corresponder a una cantidad determinada de 
+	caracteres, contando esos caracteres sabremos cuantos sub String del texto encritado hay
+
+	
+	
+	una clave privada entregada en mano, después la aplicacion sola enviará un mensaje encriptado con la siguiente clave entonces la clave habrá cambiado y los archivos antiguos habrán cambiado
