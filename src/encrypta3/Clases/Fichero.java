@@ -24,7 +24,7 @@ public class Fichero {
         FileOutputStream fos=null;
         DataOutputStream dos=null;
         try{
-            fos = new FileOutputStream("Fich");
+            fos = new FileOutputStream(this.nombreFichero);
             dos = new DataOutputStream(fos);
             for (int i = 0; i < aNumEm.length; i++) {
                 dos.writeChar('.');
@@ -51,7 +51,7 @@ public class Fichero {
         FileInputStream fis=null;
         DataInputStream dis=null;
         try{
-            f=new File("Fich");
+            f=new File(this.nombreFichero);
             if (f.exists()) {
                 fis=new FileInputStream(f);
                 dis=new DataInputStream(fis);
