@@ -1,4 +1,4 @@
-package encrypta3.Clases;
+package encrypta3;
 
 import java.io.CharArrayReader;
 import java.io.CharArrayWriter;
