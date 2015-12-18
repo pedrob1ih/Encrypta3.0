@@ -37,7 +37,6 @@ public class CambiarClavesJPanel extends javax.swing.JPanel {
 
         MuestraClavejScrollPane = new javax.swing.JScrollPane();
         cajaDeTextojTextArea = new javax.swing.JTextArea();
-        GenerarPatronesAleatoriamentejButton = new javax.swing.JButton();
         GuardarjButton = new javax.swing.JButton();
         VerPatronjButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -53,13 +52,6 @@ public class CambiarClavesJPanel extends javax.swing.JPanel {
         cajaDeTextojTextArea.setColumns(20);
         cajaDeTextojTextArea.setRows(5);
         MuestraClavejScrollPane.setViewportView(cajaDeTextojTextArea);
-
-        GenerarPatronesAleatoriamentejButton.setText("PatronesAleatorios");
-        GenerarPatronesAleatoriamentejButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GenerarPatronesAleatoriamentejButtonActionPerformed(evt);
-            }
-        });
 
         GuardarjButton.setText("Guardar");
         GuardarjButton.addActionListener(new java.awt.event.ActionListener() {
@@ -97,9 +89,7 @@ public class CambiarClavesJPanel extends javax.swing.JPanel {
                         .addComponent(GuardarjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(VerPatronjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(GenerarPatronesAleatoriamentejButton)
-                        .addGap(294, 294, 294))
+                        .addGap(423, 423, 423))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -120,7 +110,6 @@ public class CambiarClavesJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GenerarPatronesAleatoriamentejButton)
                     .addComponent(GuardarjButton)
                     .addComponent(VerPatronjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -134,20 +123,6 @@ public class CambiarClavesJPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void GenerarPatronesAleatoriamentejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarPatronesAleatoriamentejButtonActionPerformed
-        e.generaClavepublica(); //genera la clave para encriptar
-        int aNumEm[][]=e.getaPatrones();
-        String fichero="";
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 16; j++) {
-                fichero+=aNumEm[i][j]+"-";
-            }
-            fichero+=".\n";
-        }
-
-        this.cajaDeTextojTextArea.setText(fichero);
-    }//GEN-LAST:event_GenerarPatronesAleatoriamentejButtonActionPerformed
 
     private void GuardarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarjButtonActionPerformed
         try{
@@ -175,7 +150,6 @@ public class CambiarClavesJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton GenerarPatronesAleatoriamentejButton;
     private javax.swing.JButton GuardarjButton;
     private javax.swing.JScrollPane MuestraClavejScrollPane;
     private javax.swing.JButton VerPatronjButton;

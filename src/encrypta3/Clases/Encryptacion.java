@@ -59,16 +59,11 @@ public class Encryptacion {
     
     
     //ELECCION DE CLAVE 
-    public void generaClavepublica(){
+    private void generaClavepublica(){
         Random r=new Random();
         for(int i=0;i<aClaves.length;i++)
             //genera una clave q hace posible la desencriptacion
             aClaves[i]=r.nextInt(10);
-        for(int i=0;i<aPatrones.length;i++){
-            for (int j = 0; j < 16; j++)
-                //genera las claves que se guardan en el fichero y en las que se basa aClaves para hacer las tareas
-                aPatrones[i][j]=r.nextInt(33);
-        }
     }
     //ENCRIPTACION
     public String encripta(String texto){
