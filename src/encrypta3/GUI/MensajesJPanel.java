@@ -15,11 +15,11 @@ public class MensajesJPanel extends javax.swing.JPanel {
 
     private Encryptacion e;
     
-    public MensajesJPanel() {
+    public MensajesJPanel(Encryptacion e) {
         initComponents();
         TAEntradaUsuarioj.setLineWrap(true);
         TASalida.setLineWrap(true);
-        this.e= new Encryptacion("Fich");
+        this.e= e;
     }
     
     public void mostrar(){

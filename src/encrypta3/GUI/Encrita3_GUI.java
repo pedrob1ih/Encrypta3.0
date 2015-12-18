@@ -5,6 +5,8 @@
  */
 package encrypta3.GUI;
 
+import encrypta3.Clases.Encryptacion;
+
 /**
  *
  * @author yo
@@ -13,13 +15,15 @@ public class Encrita3_GUI extends javax.swing.JFrame {
 
     private MensajesJPanel mensJP;
     private CambiarClavesJPanel cClavesJP;
+    private Encryptacion e;
+    
     public Encrita3_GUI() {
         initComponents();
-        
-        mensJP=new MensajesJPanel();
+        e= new Encryptacion("Fich");
+        mensJP=new MensajesJPanel(e);
         add(mensJP);
         mensJP.setVisible(false);
-        cClavesJP=new CambiarClavesJPanel();
+        cClavesJP=new CambiarClavesJPanel(e);
         add(cClavesJP);
         cClavesJP.setVisible(false);
     }

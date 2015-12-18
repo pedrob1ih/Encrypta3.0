@@ -91,7 +91,7 @@ public class Encryptacion {
                 else 
                     outPut=outPut+a;    
                 x++;
-                System.out.println(outPut);
+                //System.out.println(outPut);
             }
             for (int i = 0; i < fB && x<texto.length(); i++) {
                 int a=(int)texto.charAt(x);
@@ -103,7 +103,7 @@ public class Encryptacion {
                 else 
                     outPut=outPut+a;    
                 x++;
-                System.out.println(outPut);
+                //System.out.println(outPut);
             }
             for (int i = 0; i < fC && x<texto.length(); i++) {
                 int a=(int)texto.charAt(x);
@@ -115,7 +115,7 @@ public class Encryptacion {
                 else 
                     outPut=outPut+a;    
                 x++;
-                System.out.println(outPut);
+                //System.out.println(outPut);
             }
         }                
         return outPut;
@@ -124,9 +124,9 @@ public class Encryptacion {
         String outPut="";
         //la clave de descifre se coloca en la primera pos , la tercera y la ultima
         //1 23 1 2 3123
-//        System.out.println("clave 1 : "+this.aClaves[0]);
-//        System.out.println("clave 2 : "+this.aClaves[1]);
-//        System.out.println("clave 3 : "+this.aClaves[2]);
+//        //System.out.println("clave 1 : "+this.aClaves[0]);
+//        //System.out.println("clave 2 : "+this.aClaves[1]);
+//        //System.out.println("clave 3 : "+this.aClaves[2]);
         texto=this.aClaves[0]+texto; //insercion de la primera clave
         
         for (int i = 0; i < 3; i++) 
@@ -162,7 +162,7 @@ public class Encryptacion {
             }    
             else{   
                 aClaves[j]=Integer.parseInt(String.valueOf(tEncriptado.charAt(i)));
-//                System.out.println("desQuitaClave = "+aClaves[j]);
+//                //System.out.println("desQuitaClave = "+aClaves[j]);
                 j++;
             }
         }
@@ -178,7 +178,7 @@ public class Encryptacion {
             temp+=String.valueOf(tLimpio.charAt(i+2));
             arSS.add(Integer.valueOf(temp));    
             i+=3;
-//            System.out.println("concatena : "+temp);
+//            //System.out.println("concatena : "+temp);
         }     
         return arSS;
     } //concatena dos a dos el texto Encriptado
@@ -193,17 +193,17 @@ public class Encryptacion {
         while(x<arSS.size()) {
             for (int i = 0; i < pA && x<arSS.size() ; i++) {
                 arSS.set(x, ((int)arSS.get(x)+this.aPatrones[0][i]));
-//                System.out.println("suma = "+ ((int)arSS.get(i)+this.aPatrones[0][i]));
+//                //System.out.println("suma = "+ ((int)arSS.get(i)+this.aPatrones[0][i]));
                 x++;
             }
             for (int i = 0; i < pB && x<arSS.size() ; i++) {
                 arSS.set(x, ((int)arSS.get(x)+this.aPatrones[1][i]));
-//                System.out.println("suma = "+ ((int)arSS.get(i)+this.aPatrones[1][i]));
+//                //System.out.println("suma = "+ ((int)arSS.get(i)+this.aPatrones[1][i]));
                 x++;
             }
             for (int i = 0; i < pC && x<arSS.size() ; i++) {
                 arSS.set(x, ((int)arSS.get(x)+this.aPatrones[2][i]));
-//                System.out.println("suma = "+ ((int)arSS.get(i)+this.aPatrones[2][i]));
+//                //System.out.println("suma = "+ ((int)arSS.get(i)+this.aPatrones[2][i]));
                 x++;
             }
         }

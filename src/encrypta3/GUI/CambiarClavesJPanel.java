@@ -15,9 +15,9 @@ import encrypta3.Clases.Fichero;
 public class CambiarClavesJPanel extends javax.swing.JPanel {
 
     private Encryptacion e;
-    public CambiarClavesJPanel() {
+    public CambiarClavesJPanel(Encryptacion e) {
         initComponents();
-        this.e= new Encryptacion("Fich");
+        this.e= e;
         cajaDeTextojTextArea.setLineWrap(true);
     }
     
