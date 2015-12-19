@@ -12,11 +12,13 @@ public class Encryptacion {
     private int aClaves[];
     private int[][] aPatrones;
     private Fichero f;
+    private String nombreFichero;
     
     public Encryptacion(String nombreFichero) {
         this.aClaves=new int[3];
         this.aPatrones=new int[3][16];
-        this.f= new Fichero(nombreFichero);
+        this.nombreFichero=nombreFichero;
+        this.f= new Fichero(this.nombreFichero);
     }
     
     
@@ -270,5 +272,9 @@ public class Encryptacion {
 
     public void setaPatrones(int[][] aPatrones) {
         this.aPatrones = aPatrones;
+    }
+
+    public String getNombreFichero() {
+        return nombreFichero;
     }
 }
