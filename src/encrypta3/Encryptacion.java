@@ -25,6 +25,7 @@ public class Encryptacion {
         this.aPatrones=new int[3][16];
         this.nombreFichero=nombreFichero;
         this.f= new Fichero(this.nombreFichero);
+        leerClavePrivada();
     }
     
     
@@ -41,7 +42,7 @@ public class Encryptacion {
     }
 
     //generacion de patrones apartir de texto
-    private void generaClavePrivada(String texto) throws Exception{
+    public void cambiarClaverprivada(String texto) throws Exception{
         for (int i = 0; i < 20; i++) {
             texto+=texto;
         }
@@ -63,6 +64,7 @@ public class Encryptacion {
         finally{
             if(car!=null) car.close();
         }
+        guardarClavePrivada();
     }
     
     
@@ -251,10 +253,10 @@ public class Encryptacion {
     }
     
     
-    public void guardarClavePrivada(){
+    private void guardarClavePrivada(){
         f.GuardaCreaFicheroClaves(aPatrones);
     }
-    public void leerClavePrivada(){
+    private void leerClavePrivada(){
         f.leeFicheroClaves(aPatrones);
     }
     public void guardarFichero(String nFichero,String texto){
@@ -266,9 +268,9 @@ public class Encryptacion {
     
     //GETTERS & SETTERS
 
-    public int[][] getaPatrones() {
-        return aPatrones;
-    }
+//    public int[][] getaPatrones() {
+//        return aPatrones;
+//    }
 
     public String getNombreFichero() {
         return nombreFichero;
@@ -290,7 +292,7 @@ class Fichero {
         FileOutputStream fos=null;
         DataOutputStream dos=null;
         try{
-            fos = new FileOutputStream("Fich");
+            fos = new FileOutputStream(this.nombreFichero);
             dos = new DataOutputStream(fos);
             for (int i = 0; i < aNumEm.length; i++) {
                 dos.writeChar('.');
@@ -317,7 +319,7 @@ class Fichero {
         FileInputStream fis=null;
         DataInputStream dis=null;
         try{
-            f=new File("Fich");
+            f=new File(this.nombreFichero);
             if (f.exists()) {
                 fis=new FileInputStream(f);
                 dis=new DataInputStream(fis);
