@@ -28,7 +28,7 @@ public class Encryptacion {
     }
     
     
-    public static List<Integer> factorial(long number) {
+    private static List<Integer> factorial(long number) {
         long n = number;
         List<Integer> factors = new ArrayList<>();
         for (int i = 2; i <= n; i++) {
@@ -41,7 +41,7 @@ public class Encryptacion {
     }
 
     //generacion de patrones apartir de texto
-    public void generaClaves(String texto) throws Exception{
+    private void generaClavePrivada(String texto) throws Exception{
         for (int i = 0; i < 20; i++) {
             texto+=texto;
         }
@@ -250,34 +250,24 @@ public class Encryptacion {
         return false;
     }
     
-    public void guardarClavePublica(){
+    
+    public void guardarClavePrivada(){
         f.GuardaCreaFicheroClaves(aPatrones);
     }
-    public void leerFichero(){
+    public void leerClavePrivada(){
         f.leeFicheroClaves(aPatrones);
     }
-    public void guardaFicheroEncriptado(String nFichero,String texto){
-        f.guardaFicheroEncriptado(nFichero,texto);
+    public void guardarFichero(String nFichero,String texto){
+        f.guardaFicheroTexto(nFichero,texto);
     }
-    public void guardaFicheroEncriptado(String nFichero){
-        f.cargaFicheroEncriptado(nFichero);
+    public String cargarFichero(String nFichero){
+        return f.cargaFicheroTexto(nFichero);
     }
     
     //GETTERS & SETTERS
-    public int[] getaClaves() {
-        return aClaves;
-    }
 
     public int[][] getaPatrones() {
         return aPatrones;
-    }
-    
-    public void setaClaves(int[] aClaves) {
-        this.aClaves = aClaves;
-    }
-
-    public void setaPatrones(int[][] aPatrones) {
-        this.aPatrones = aPatrones;
     }
 
     public String getNombreFichero() {
@@ -359,7 +349,7 @@ class Fichero {
         }
     }
     
-    public void guardaFicheroEncriptado(String nombreFichero,String texto){
+    public void guardaFicheroTexto(String nombreFichero,String texto){
         FileOutputStream fos=null;
         DataOutputStream dos=null;
         try{
@@ -383,7 +373,7 @@ class Fichero {
         }            
     }
     
-    public String cargaFicheroEncriptado(String nombreFichero){
+    public String cargaFicheroTexto(String nombreFichero){
         File f=null;
         FileInputStream fis=null;
         DataInputStream dis=null;
