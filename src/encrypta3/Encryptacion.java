@@ -57,7 +57,7 @@ public class Encryptacion {
 
     //generacion de patrones apartir de texto
     public void cambiarClaverprivada(String texto) throws Exception{
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 20; i++) {
             texto+=texto;
         }
         CharArrayReader car=null;
@@ -88,7 +88,7 @@ public class Encryptacion {
         Random r=new Random();
         for(int i=0;i<aClaves.length;i++)
             //genera una clave q hace posible la desencriptacion
-            aClaves[i]=r.nextInt(10);
+            aClaves[i]=r.nextInt(9)+1;
     }
     //ENCRIPTACION
     public String encripta(String texto){
@@ -103,6 +103,12 @@ public class Encryptacion {
         this.lAA=multiplicacion/fA;
         this.lAB=multiplicacion/fB;
         this.lAC=multiplicacion/fC;
+        if(lAA>=81)
+            lAA-=5;
+        if(lAB>=81)
+            lAB-=5;
+        if(lAC>=81)
+            lAC-=5;
         return enInsertaClave(this.enRestaStrMas0(texto));
     }   //Métodos de Encriptacion
     private String enRestaStrMas0(String texto){ //resta valor a la cadena en ascii individualmente
@@ -216,6 +222,19 @@ public class Encryptacion {
         int x=0;
         
         //dependiendo de la frecuencia de cada una de las claves se usará un array u otro
+        this.fA=this.aClaves[0];
+        this.fB=this.aClaves[1];
+        this.fC=this.aClaves[2];
+        this.multiplicacion=fA*fB*fC;
+        this.lAA=multiplicacion/fA;
+        this.lAB=multiplicacion/fB;
+        this.lAC=multiplicacion/fC;
+        if(lAA>=81)
+            lAA-=5;
+        if(lAB>=81)
+            lAB-=5;
+        if(lAC>=81)
+            lAC-=5;
         
         while(x<arSS.size()) {
             for (int i = 0; i < fA && x<arSS.size() ; i++) {
