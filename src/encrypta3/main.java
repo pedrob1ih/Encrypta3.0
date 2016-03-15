@@ -11,7 +11,7 @@ public class main {
         try {
             Encryptacion e= new Encryptacion("fieccch");
             String texto=e.encripta("holaaaaaaa");
-            e.cambiarClaverprivada("123123213");
+//            e.cambiarClaverprivada("123123213");
             System.out.println(texto);
             System.out.println(e.desencripta(texto));
         } catch (Exception ex) {

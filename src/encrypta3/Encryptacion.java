@@ -19,13 +19,27 @@ public class Encryptacion {
     private int[][] aPatrones;
     private Fichero f;
     private String nombreFichero;
+    int multiplicacion;
+    int lAA;
+    int lAB;
+    int lAC;
+    int fA;
+    int fB;
+    int fC;
     
     public Encryptacion(String nombreFichero) {
         this.aClaves=new int[3];
-        this.aPatrones=new int[3][16];
+        this.aPatrones=new int[81][10];
         this.nombreFichero=nombreFichero;
         this.f= new Fichero(this.nombreFichero);
         leerClavePrivada();
+        int multiplicacion=0;
+        int lAA=0;
+        int lAB=0;
+        int lAC=0;
+        int fA=0;
+        int fB=0;
+        int fC=0;
     }
     
     
@@ -43,14 +57,14 @@ public class Encryptacion {
 
     //generacion de patrones apartir de texto
     public void cambiarClaverprivada(String texto) throws Exception{
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 100; i++) {
             texto+=texto;
         }
         CharArrayReader car=null;
         try{
             car= new CharArrayReader(texto.toCharArray());
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 16; j++) {
+            for (int i = 0; i < aPatrones.length; i++) {
+                for (int j = 0; j < aPatrones[1].length; j++) {
                     int valor=car.read();
                     while (valor >30)
                         valor-=30;
@@ -65,6 +79,7 @@ public class Encryptacion {
             if(car!=null) car.close();
         }
         guardarClavePrivada();
+        f.leeFicheroClaves(aPatrones);
     }
     
     
@@ -78,22 +93,27 @@ public class Encryptacion {
     //ENCRIPTACION
     public String encripta(String texto){
         this.generaClavepublica();
-        f.leeFicheroClaves(aPatrones);
+        if(aPatrones==null)
+            f.leeFicheroClaves(aPatrones);
         texto=texto.replace("\n", "%/");
-        
+        this.fA=this.aClaves[0];
+        this.fB=this.aClaves[1];
+        this.fC=this.aClaves[2];
+        this.multiplicacion=fA*fB*fC;
+        this.lAA=multiplicacion/fA;
+        this.lAB=multiplicacion/fB;
+        this.lAC=multiplicacion/fC;
         return enInsertaClave(this.enRestaStrMas0(texto));
     }   //Métodos de Encriptacion
     private String enRestaStrMas0(String texto){ //resta valor a la cadena en ascii individualmente
         int x=0;
         String outPut="";
         //dependiendo de la frecuencia de cada una de las claves se usará un array u otro
-        int fA=this.aClaves[0];
-        int fB=this.aClaves[1];
-        int fC=this.aClaves[2];
+        int a=0;
         while(x<texto.length()) {
             for (int i = 0; i < fA && x<texto.length(); i++) {
-                int a=(int)texto.charAt(x);
-                a-=this.aPatrones[0][i];
+                a=(int)texto.charAt(x);
+                a-=this.aPatrones[lAA][i];
                 if(a<10)//dos ceros mas 
                     outPut=outPut+"00"+a;    
                 else if(a<100) //un cero mas
@@ -104,8 +124,8 @@ public class Encryptacion {
                 //System.out.println(outPut);
             }
             for (int i = 0; i < fB && x<texto.length(); i++) {
-                int a=(int)texto.charAt(x);
-                a-=this.aPatrones[1][i];
+                a=(int)texto.charAt(x);
+                a-=this.aPatrones[lAB][i];
                 if(a<10)//dos ceros mas 
                     outPut=outPut+"00"+a;    
                 else if(a<100) //un cero mas
@@ -116,8 +136,8 @@ public class Encryptacion {
                 //System.out.println(outPut);
             }
             for (int i = 0; i < fC && x<texto.length(); i++) {
-                int a=(int)texto.charAt(x);
-                a-=this.aPatrones[2][i];
+                a=(int)texto.charAt(x);
+                a-=this.aPatrones[lAC][i];
                 if(a<10)//dos ceros mas 
                     outPut=outPut+"00"+a;    
                 else if(a<100) //un cero mas
@@ -196,23 +216,20 @@ public class Encryptacion {
         int x=0;
         
         //dependiendo de la frecuencia de cada una de las claves se usará un array u otro
-        int pA=this.aClaves[0];
-        int pB=this.aClaves[1];
-        int pC=this.aClaves[2];
         
         while(x<arSS.size()) {
-            for (int i = 0; i < pA && x<arSS.size() ; i++) {
-                arSS.set(x, ((int)arSS.get(x)+this.aPatrones[0][i]));
+            for (int i = 0; i < fA && x<arSS.size() ; i++) {
+                arSS.set(x, ((int)arSS.get(x)+this.aPatrones[lAA][i]));
 //                //System.out.println("suma = "+ ((int)arSS.get(i)+this.aPatrones[0][i]));
                 x++;
             }
-            for (int i = 0; i < pB && x<arSS.size() ; i++) {
-                arSS.set(x, ((int)arSS.get(x)+this.aPatrones[1][i]));
+            for (int i = 0; i < fB && x<arSS.size() ; i++) {
+                arSS.set(x, ((int)arSS.get(x)+this.aPatrones[lAB][i]));
 //                //System.out.println("suma = "+ ((int)arSS.get(i)+this.aPatrones[1][i]));
                 x++;
             }
-            for (int i = 0; i < pC && x<arSS.size() ; i++) {
-                arSS.set(x, ((int)arSS.get(x)+this.aPatrones[2][i]));
+            for (int i = 0; i < fC && x<arSS.size() ; i++) {
+                arSS.set(x, ((int)arSS.get(x)+this.aPatrones[lAC][i]));
 //                //System.out.println("suma = "+ ((int)arSS.get(i)+this.aPatrones[2][i]));
                 x++;
             }
@@ -296,7 +313,7 @@ class Fichero {
             dos = new DataOutputStream(fos);
             for (int i = 0; i < aNumEm.length; i++) {
                 dos.writeChar('.');
-                for (int j = 0; j < 16; j++) {
+                for (int j = 0; j < aNumEm[1].length; j++) {
                     dos.writeInt(aNumEm[i][j]);
                 }
             }
@@ -326,7 +343,7 @@ class Fichero {
                 int i=0;
                 while (true) {    
                     dis.readChar();
-                    for (int j = 0; j < 16; j++) {
+                    for (int j = 0; j < aNumEm[1].length; j++) {
                         aNumEm[i][j]=dis.readInt();
                     }
                     i++;
