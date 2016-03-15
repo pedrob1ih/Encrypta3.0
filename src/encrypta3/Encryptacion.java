@@ -42,6 +42,31 @@ public class Encryptacion {
         int fC=0;
     }
     
+    public static String toCharrr(String mensaje){
+        char a;
+        char b;
+        String mSalida="";
+        String intermedio="";
+        for (int i = 0; i < mensaje.length()-1; i++) {
+            intermedio="";
+            a=mensaje.charAt(i);
+            b=mensaje.charAt(i+1);
+            intermedio+=a;
+            intermedio+=b;
+            mSalida+=String.valueOf((char)Integer.parseInt(intermedio));
+            i++;
+        }
+        return mSalida;
+    }
+    
+    public static String charToInteger(String mensaje){
+        CharArrayWriter caw=new CharArrayWriter();
+        String mSalida="";
+        for (int i = 0; i < mensaje.length(); i++) {
+            mSalida+=String.valueOf((int)mensaje.charAt(i));
+        }
+        return mSalida;
+    }
     
     private static List<Integer> factorial(long number) {
         long n = number;
@@ -57,29 +82,33 @@ public class Encryptacion {
 
     //generacion de patrones apartir de texto
     public void cambiarClaverprivada(String texto) throws Exception{
-        for (int i = 0; i < 20; i++) {
-            texto+=texto;
-        }
-        CharArrayReader car=null;
-        try{
-            car= new CharArrayReader(texto.toCharArray());
-            for (int i = 0; i < aPatrones.length; i++) {
-                for (int j = 0; j < aPatrones[1].length; j++) {
-                    int valor=car.read();
-                    while (valor >30)
-                        valor-=30;
-                    this.aPatrones[i][j]=valor;
+        if(texto.equals(""))
+            throw new Exception("Error Clave privada vacia");
+        else{
+            for (int i = 0; i < 20; i++) {
+                texto+=texto;
+            }
+            CharArrayReader car=null;
+            try{
+                car= new CharArrayReader(texto.toCharArray());
+                for (int i = 0; i < aPatrones.length; i++) {
+                    for (int j = 0; j < aPatrones[1].length; j++) {
+                        int valor=car.read();
+                        while (valor >30)
+                            valor-=30;
+                        this.aPatrones[i][j]=valor;
+                    }
                 }
             }
+            catch(IOException e){
+                throw new Exception("fallo al generar");
+            }
+            finally{
+                if(car!=null) car.close();
+            }
+            guardarClavePrivada();
+            f.leeFicheroClaves(aPatrones);
         }
-        catch(IOException e){
-            throw new Exception("fallo al generar");
-        }
-        finally{
-            if(car!=null) car.close();
-        }
-        guardarClavePrivada();
-        f.leeFicheroClaves(aPatrones);
     }
     
     
