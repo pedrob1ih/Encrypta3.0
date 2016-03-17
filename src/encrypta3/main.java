@@ -16,6 +16,7 @@ public class main {
             String tAEncriptar="";
             String tEncriptado="";
             String tDesEncriptado="";
+            int valorI=0;
 
             
 
@@ -32,10 +33,16 @@ public class main {
                 System.out.println("Texto encriptado ::"+tEncriptado);
                 tDesEncriptado=e.desencripta(tEncriptado);
                 System.out.println("Texto desEncriptado ::"+tDesEncriptado);
-                
+                valorI=i;
             }
-            
-        } catch (Exception ex) {
+            System.out.println("*******************************************************************");
+            System.out.println("NUEVA CLAVE PRIVADA :: "+clavePrivada);
+            System.out.println("Texto a encriptar ::"+tAEncriptar);
+            System.out.println("Texto encriptado ::"+tEncriptado);
+            System.out.println("Texto desEncriptado ::"+tDesEncriptado);
+            System.out.println("valor de i "+valorI);
+        } 
+        catch (Exception ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    

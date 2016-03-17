@@ -20,20 +20,15 @@ public class Encryptacion {
     private Fichero f;
     private String nombreFicheroClavePrivada;
     private int multiplicacion,lAA,lAB,lAC,fA,fB,fC;
+    private String stringDRemplazo;
     
-    public Encryptacion(String nombreFichero) {
+    public Encryptacion(String nombreFicheroClavePrivada) {
         this.aClaves=new int[3];
         this.aPatrones=new int[81][10];
-        this.nombreFicheroClavePrivada=nombreFichero;
+        this.nombreFicheroClavePrivada=nombreFicheroClavePrivada;
         this.f= new Fichero(this.nombreFicheroClavePrivada);
         leerClavePrivada();
-        int multiplicacion=0;
-        int lAA=0;
-        int lAB=0;
-        int lAC=0;
-        int fA=0;
-        int fB=0;
-        int fC=0;
+        this.stringDRemplazo="12345678900%/";
     }
     //metodos que no se usan
     private static String toCharrr(String mensaje){
@@ -115,8 +110,7 @@ public class Encryptacion {
     //ENCRIPTACION
     public String encripta(String texto){
         this.generaClavepublica();
-//        if(aPatrones==null)
-        texto=texto.replace("\n", "%/");
+        texto=texto.replace("\n", stringDRemplazo);
         this.fA=this.aClaves[0];
         this.fB=this.aClaves[1];
         this.fC=this.aClaves[2];
@@ -130,53 +124,35 @@ public class Encryptacion {
             lAB-=5;
         if(lAC>=81)
             lAC-=5;
-        return enInsertaClave(this.enRestaStrMas0(texto));
+        return enInsertaClave(this.restaStrMas0(texto));
     }   //Métodos de Encriptacion
-    private String enRestaStrMas0(String texto){ //resta valor a la cadena en ascii individualmente
-        int x=0;
+    private String restaStrMas0(String texto){ //resta valor a la cadena en ascii individualmente
         String outPut="";
         //dependiendo de la frecuencia de cada una de las claves se usará un array u otro
-        int a=0;
-        while(x<texto.length()) {
-            for (int i = 0; i < fA && x<texto.length(); i++) {
-                a=(int)texto.charAt(x);
-                a-=this.aPatrones[lAA][i];
-                if(a<10)//dos ceros mas 
-                    outPut=outPut+"00"+a;    
-                else if(a<100) //un cero mas
-                    outPut=outPut+"0"+a;    
-                else 
-                    outPut=outPut+a;    
-                x++;
-                //System.out.println(outPut);
-            }
-            for (int i = 0; i < fB && x<texto.length(); i++) {
-                a=(int)texto.charAt(x);
-                a-=this.aPatrones[lAB][i];
-                if(a<10)//dos ceros mas 
-                    outPut=outPut+"00"+a;    
-                else if(a<100) //un cero mas
-                    outPut=outPut+"0"+a;    
-                else 
-                    outPut=outPut+a;    
-                x++;
-                //System.out.println(outPut);
-            }
-            for (int i = 0; i < fC && x<texto.length(); i++) {
-                a=(int)texto.charAt(x);
-                a-=this.aPatrones[lAC][i];
-                if(a<10)//dos ceros mas 
-                    outPut=outPut+"00"+a;    
-                else if(a<100) //un cero mas
-                    outPut=outPut+"0"+a;    
-                else 
-                    outPut=outPut+a;    
-                x++;
-                //System.out.println(outPut);
-            }
+        int j=0;
+        int k=0;
+        while(j<texto.length()) {
+            algoritmoRestaStrMas0(j, fA, texto, outPut);
+            algoritmoRestaStrMas0(j, fB, texto, outPut);
+            algoritmoRestaStrMas0(j, fC, texto, outPut);
         }                
         return outPut;
     }   //resta valor ascii
+    private void algoritmoRestaStrMas0(int j,int frecuencia,String texto,String outPut){
+        int k=0;
+        for (int i = 0; i < frecuencia && j<texto.length(); i++) {
+            k=(int)texto.charAt(j);
+            k-=this.aPatrones[lAA][i];
+            if(k<10)//dos ceros mas 
+                outPut=outPut+"00"+k;    
+            else if(k<100) //un cero mas
+                outPut=outPut+"0"+k;    
+            else 
+                outPut=outPut+k;    
+            j++;
+            System.out.println(outPut);
+        }
+    }
     private String enInsertaClave(String texto){
         String outPut="";
         //la clave de descifre se coloca en la primera pos , la tercera y la ultima
@@ -207,7 +183,7 @@ public class Encryptacion {
         // suma el valor que previamente ha sido restado
         desSuma(alSS); 
         String salida=DesValToString(alSS);
-        return salida.replaceAll("%/", "\n");
+        return salida.replaceAll(stringDRemplazo, "\n");
     } //desencritar
     private String desQuitaClave(String tEncriptado){
         String tLimpio="";
