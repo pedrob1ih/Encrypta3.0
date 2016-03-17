@@ -18,20 +18,14 @@ public class Encryptacion {
     private int aClaves[];
     private int[][] aPatrones;
     private Fichero f;
-    private String nombreFichero;
-    int multiplicacion;
-    int lAA;
-    int lAB;
-    int lAC;
-    int fA;
-    int fB;
-    int fC;
+    private String nombreFicheroClavePrivada;
+    private int multiplicacion,lAA,lAB,lAC,fA,fB,fC;
     
     public Encryptacion(String nombreFichero) {
         this.aClaves=new int[3];
         this.aPatrones=new int[81][10];
-        this.nombreFichero=nombreFichero;
-        this.f= new Fichero(this.nombreFichero);
+        this.nombreFicheroClavePrivada=nombreFichero;
+        this.f= new Fichero(this.nombreFicheroClavePrivada);
         leerClavePrivada();
         int multiplicacion=0;
         int lAA=0;
@@ -41,7 +35,7 @@ public class Encryptacion {
         int fB=0;
         int fC=0;
     }
-    
+    //metodos que no se usan
     private static String toCharrr(String mensaje){
         char a;
         char b;
@@ -80,12 +74,12 @@ public class Encryptacion {
         return factors;
     }
 
-    //generacion de patrones apartir de texto
+    //generacion de la clave privada a partir de una cadena de texto
     public void cambiarClaverprivada(String texto) throws Exception{
         if(texto.equals(""))
             throw new Exception("Error Clave privada vacia");
         else{
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < 10; i++) {
                 texto+=texto;
             }
             CharArrayReader car=null;
@@ -107,7 +101,6 @@ public class Encryptacion {
                 if(car!=null) car.close();
             }
             guardarClavePrivada();
-            f.leeFicheroClaves(aPatrones);
         }
     }
     
@@ -122,8 +115,7 @@ public class Encryptacion {
     //ENCRIPTACION
     public String encripta(String texto){
         this.generaClavepublica();
-        if(aPatrones==null)
-            f.leeFicheroClaves(aPatrones);
+//        if(aPatrones==null)
         texto=texto.replace("\n", "%/");
         this.fA=this.aClaves[0];
         this.fB=this.aClaves[1];
@@ -211,7 +203,6 @@ public class Encryptacion {
     public String desencripta(String tEncriptado) throws Exception{
         //quita la clave y la añade a el array de claves
         //separa dos a dos los caracteres del String de entrada
-        f.leeFicheroClaves(aPatrones);
         ArrayList alSS=desConcat3a3(desQuitaClave(tEncriptado)); 
         // suma el valor que previamente ha sido restado
         desSuma(alSS); 
@@ -333,12 +324,8 @@ public class Encryptacion {
     
     //GETTERS & SETTERS
 
-//    public int[][] getaPatrones() {
-//        return aPatrones;
-//    }
-
-    public String getNombreFichero() {
-        return nombreFichero;
+    public String getNombreFicheroClavesPrivadas() {
+        return nombreFicheroClavePrivada;
     }
 }
 

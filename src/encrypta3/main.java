@@ -10,34 +10,28 @@ public class main {
 
     
     public static void main(String[] args) {
-        
         try {
             Encryptacion e= new Encryptacion("fieccch");
-            Random r= new Random();
-            CharArrayWriter caw=new CharArrayWriter();
-            CharArrayWriter cawTexto=new CharArrayWriter();
             String clavePrivada="";
-            String texto="";
-            String texto2="";
-            
+            String tAEncriptar="";
+            String tEncriptado="";
+            String tDesEncriptado="";
 
             
-            for (int i = 0; i < 1000; i++) {
+
+            for (int i = 0; i < 1000 && tAEncriptar.equals(tDesEncriptado); i++) {
                 clavePrivada="";
-                texto="";
-                texto2="";
-                caw.reset();
-                for (int j = 0; j < r.nextInt(99); j++) {
-                    caw.write(r.nextInt(93)+33);
-                    cawTexto.write(r.nextInt(93)+33);
-                }
-                clavePrivada=caw.toString()+"a";
-                texto=cawTexto.toString()+"a";
+                tAEncriptar="";
+                tEncriptado="";
+                clavePrivada=textoAleatorio();
+                tAEncriptar=textoAleatorio();
                 System.out.println("NUEVA CLAVE PRIVADA :: "+clavePrivada);
                 e.cambiarClaverprivada(clavePrivada);
-                texto2=e.encripta(texto);
-                System.out.println(texto2);
-                System.out.println(e.desencripta(texto2));
+                System.out.println("Texto a encriptar ::"+tAEncriptar);
+                tEncriptado=e.encripta(tAEncriptar);
+                System.out.println("Texto encriptado ::"+tEncriptado);
+                tDesEncriptado=e.desencripta(tEncriptado);
+                System.out.println("Texto desEncriptado ::"+tDesEncriptado);
                 
             }
             
@@ -45,4 +39,13 @@ public class main {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
+    public static String textoAleatorio(){
+        Random r= new Random();
+        CharArrayWriter caw=new CharArrayWriter();
+        for (int j = 0; j < r.nextInt(99); j++) {
+            caw.write(r.nextInt(93)+33);
+            
+        }
+        return caw.toString()+"a";
+    }
 }
