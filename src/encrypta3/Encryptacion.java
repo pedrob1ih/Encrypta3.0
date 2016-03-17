@@ -42,7 +42,7 @@ public class Encryptacion {
         int fC=0;
     }
     
-    public static String toCharrr(String mensaje){
+    private static String toCharrr(String mensaje){
         char a;
         char b;
         String mSalida="";
@@ -59,7 +59,7 @@ public class Encryptacion {
         return mSalida;
     }
     
-    public static String charToInteger(String mensaje){
+    private static String charToInteger(String mensaje){
         CharArrayWriter caw=new CharArrayWriter();
         String mSalida="";
         for (int i = 0; i < mensaje.length(); i++) {
