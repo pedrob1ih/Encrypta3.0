@@ -31,8 +31,8 @@ public class main {
                 tEncriptado="";
                 clavePrivada=textoAleatorio();
                 tAEncriptar=textoAleatorio();
-                System.out.println("NUEVA CLAVE PRIVADA :: "+String.valueOf(abc.charAt(i)));
-                e.cambiarClaverprivada(String.valueOf(abc.charAt(i)));
+                System.out.println("NUEVA CLAVE PRIVADA :: "+clavePrivada);
+                e.cambiarClaverprivada(clavePrivada);
                 System.out.println("Texto a encriptar ::"+tAEncriptar);
                 tEncriptado=e.encripta(tAEncriptar);
                 System.out.println("Texto encriptado ::"+tEncriptado);
