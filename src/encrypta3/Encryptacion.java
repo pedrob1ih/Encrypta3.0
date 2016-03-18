@@ -1,5 +1,7 @@
 package encrypta3;
 
+import Modelo.Numero;
+import Modelo.Texto;
 import java.io.CharArrayReader;
 import java.io.CharArrayWriter;
 import java.util.ArrayList;
@@ -127,30 +129,28 @@ public class Encryptacion {
         return enInsertaClave(this.restaStrMas0(texto));
     }   //Métodos de Encriptacion
     private String restaStrMas0(String texto){ //resta valor a la cadena en ascii individualmente
-        String outPut="";
+        Texto outPut=new Texto("");
         //dependiendo de la frecuencia de cada una de las claves se usará un array u otro
-        int j=0;
-        int k=0;
-        while(j<texto.length()) {
-            algoritmoRestaStrMas0(j, fA, texto, outPut);
-            algoritmoRestaStrMas0(j, fB, texto, outPut);
-            algoritmoRestaStrMas0(j, fC, texto, outPut);
+        Numero j=new Numero(0);
+        while(j.getNumero()<texto.length()) {
+            algoritmoRestaStrMas0(j, fA,lAA, texto, outPut);
+            algoritmoRestaStrMas0(j, fB,lAB, texto, outPut);
+            algoritmoRestaStrMas0(j, fC,lAC, texto, outPut);
         }                
-        return outPut;
+        return outPut.getTexto();
     }   //resta valor ascii
-    private void algoritmoRestaStrMas0(int j,int frecuencia,String texto,String outPut){
+    private void algoritmoRestaStrMas0(Numero j,int frecuencia,int eles,String texto,Texto outPut){
         int k=0;
-        for (int i = 0; i < frecuencia && j<texto.length(); i++) {
-            k=(int)texto.charAt(j);
-            k-=this.aPatrones[lAA][i];
+        for (int i = 0; i < frecuencia && j.getNumero()<texto.length(); i++) {
+            k=(int)texto.charAt(j.getNumero());
+            k-=this.aPatrones[eles][i];
             if(k<10)//dos ceros mas 
-                outPut=outPut+"00"+k;    
+                outPut.setTexto(outPut.getTexto()+"00"+k);
             else if(k<100) //un cero mas
-                outPut=outPut+"0"+k;    
+                outPut.setTexto(outPut.getTexto()+"0"+k);
             else 
-                outPut=outPut+k;    
-            j++;
-            System.out.println(outPut);
+                outPut.setTexto(outPut.getTexto()+k);
+            j.setNumero(j.getNumero()+1);
         }
     }
     private String enInsertaClave(String texto){
