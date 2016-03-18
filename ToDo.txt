@@ -1,5 +1,7 @@
 **cambiar el array de claves privadas de [3][16] a [200][10]
 
+**cambiar el sistema para hacer posible que se guarde la clave privada donde se quiera
+
 **cambio del motor
 hay una clave privada
 la clave publica es multiplicada(n0*n1*n2), esto es sumado a la clave privada

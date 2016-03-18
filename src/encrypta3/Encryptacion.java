@@ -177,6 +177,21 @@ public class Encryptacion {
      
     //DESENCRIPTACION
     public String desencripta(String tEncriptado) throws Exception{
+        
+        this.fA=this.aClaves[0];
+        this.fB=this.aClaves[1];
+        this.fC=this.aClaves[2];
+        this.multiplicacion=fA*fB*fC;
+        this.lAA=multiplicacion/fA;
+        this.lAB=multiplicacion/fB;
+        this.lAC=multiplicacion/fC;
+        if(lAA>=81)
+            lAA-=5;
+        if(lAB>=81)
+            lAB-=5;
+        if(lAC>=81)
+            lAC-=5;
+        
         //quita la clave y la añade a el array de claves
         //separa dos a dos los caracteres del String de entrada
         ArrayList alSS=desConcat3a3(desQuitaClave(tEncriptado)); 
@@ -215,41 +230,23 @@ public class Encryptacion {
         return arSS;
     } //concatena dos a dos el texto Encriptado
     private void desSuma(ArrayList arSS){
-        int x=0;
+        Numero x=new Numero(0);
         
         //dependiendo de la frecuencia de cada una de las claves se usará un array u otro
-        this.fA=this.aClaves[0];
-        this.fB=this.aClaves[1];
-        this.fC=this.aClaves[2];
-        this.multiplicacion=fA*fB*fC;
-        this.lAA=multiplicacion/fA;
-        this.lAB=multiplicacion/fB;
-        this.lAC=multiplicacion/fC;
-        if(lAA>=81)
-            lAA-=5;
-        if(lAB>=81)
-            lAB-=5;
-        if(lAC>=81)
-            lAC-=5;
         
-        while(x<arSS.size()) {
-            for (int i = 0; i < fA && x<arSS.size() ; i++) {
-                arSS.set(x, ((int)arSS.get(x)+this.aPatrones[lAA][i]));
-//                //System.out.println("suma = "+ ((int)arSS.get(i)+this.aPatrones[0][i]));
-                x++;
-            }
-            for (int i = 0; i < fB && x<arSS.size() ; i++) {
-                arSS.set(x, ((int)arSS.get(x)+this.aPatrones[lAB][i]));
-//                //System.out.println("suma = "+ ((int)arSS.get(i)+this.aPatrones[1][i]));
-                x++;
-            }
-            for (int i = 0; i < fC && x<arSS.size() ; i++) {
-                arSS.set(x, ((int)arSS.get(x)+this.aPatrones[lAC][i]));
-//                //System.out.println("suma = "+ ((int)arSS.get(i)+this.aPatrones[2][i]));
-                x++;
-            }
+        while(x.getNumero()<arSS.size()) {
+            algoritmoDesSuma(x, fA, lAA, arSS);
+            algoritmoDesSuma(x, fB, lAB, arSS);
+            algoritmoDesSuma(x, fC, lAC, arSS);
         }
     } //suma el valor en ascii
+    
+    private void algoritmoDesSuma(Numero x,int frecuencia,int posicionArray,ArrayList arSS){
+        for (int i = 0; i < frecuencia && x.getNumero()<arSS.size() ; i++) {
+            arSS.set(x.getNumero(), ((int)arSS.get(x.getNumero())+this.aPatrones[posicionArray][i]));
+            x.setNumero(x.getNumero()+1);
+        }
+    }
     private String DesValToString(ArrayList arSS) throws Exception{
         CharArrayWriter caw=null;
         try{
