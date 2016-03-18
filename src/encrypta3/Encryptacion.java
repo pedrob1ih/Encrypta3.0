@@ -85,8 +85,12 @@ public class Encryptacion {
                 for (int i = 0; i < aPatrones.length; i++) {
                     for (int j = 0; j < aPatrones[1].length; j++) {
                         int valor=car.read();
-                        while (valor >30)
-                            valor-=30;
+                        if(valor<32)
+                            throw new Exception("Error al generar la calve, tiene que usar caracteres entre 0 y 128");
+                        else
+                            valor=valor-32;
+                        while (valor >99)
+                            valor-=100;
                         this.aPatrones[i][j]=valor;
                     }
                 }
@@ -136,7 +140,8 @@ public class Encryptacion {
             algoritmoRestaStrMas0(j, fA,lAA, texto, outPut);
             algoritmoRestaStrMas0(j, fB,lAB, texto, outPut);
             algoritmoRestaStrMas0(j, fC,lAC, texto, outPut);
-        }                
+        }      
+        System.out.println(outPut.getTexto());
         return outPut.getTexto();
     }   //resta valor ascii
     private void algoritmoRestaStrMas0(Numero j,int frecuencia,int eles,String texto,Texto outPut){
@@ -144,10 +149,13 @@ public class Encryptacion {
         for (int i = 0; i < frecuencia && j.getNumero()<texto.length(); i++) {
             k=(int)texto.charAt(j.getNumero());
             k-=this.aPatrones[eles][i];
+            k+=100;
             if(k<10)//dos ceros mas 
-                outPut.setTexto(outPut.getTexto()+"00"+k);
+                outPut.setTexto(outPut.getTexto()+"000"+k);
             else if(k<100) //un cero mas
-                outPut.setTexto(outPut.getTexto()+"0"+k);
+                outPut.setTexto(outPut.getTexto()+"00"+k);
+            else if(k<1000) //un cero mas
+                outPut.setTexto(outPut.getTexto()+"00"+k);
             else 
                 outPut.setTexto(outPut.getTexto()+k);
             j.setNumero(j.getNumero()+1);
@@ -281,7 +289,17 @@ public class Encryptacion {
         return false;
     }
     
-    
+    public String getClavePrivada() {
+        String outPut="";
+        for (int i = 0; i < aPatrones.length; i++) {
+            for (int j = 0; j < aPatrones[1].length; j++) {
+                outPut+=aPatrones[i][j];
+                outPut+=".";
+            }
+            outPut+=":\n";
+        }
+        return outPut;
+    }
     private void guardarClavePrivada(){
         f.GuardaCreaFicheroClaves(aPatrones);
     }
