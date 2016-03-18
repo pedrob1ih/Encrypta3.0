@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigInteger;
 
 public class Encryptacion {
     private int aClaves[];
@@ -155,13 +156,14 @@ public class Encryptacion {
             else if(k<100) //un cero mas
                 outPut.setTexto(outPut.getTexto()+"00"+k);
             else if(k<1000) //un cero mas
-                outPut.setTexto(outPut.getTexto()+"00"+k);
+                outPut.setTexto(outPut.getTexto()+"0"+k);
             else 
                 outPut.setTexto(outPut.getTexto()+k);
             j.setNumero(j.getNumero()+1);
         }
     }
     private String enInsertaClave(String texto){
+        System.out.println("ENCRIPTAR SIN CLAVE "+texto);
         String outPut="";
         //la clave de descifre se coloca en la primera pos , la tercera y la ultima
         //1 23 1 2 3123
@@ -179,7 +181,6 @@ public class Encryptacion {
         outPut=outPut+texto.toCharArray()[i];
         
         outPut=outPut+this.aClaves[2]; // se pasa la tercera clave al texto 
-        
         return outPut;
     }   //ADDICION DE LA CLAVE
      
@@ -202,7 +203,7 @@ public class Encryptacion {
         
         //quita la clave y la añade a el array de claves
         //separa dos a dos los caracteres del String de entrada
-        ArrayList alSS=desConcat3a3(desQuitaClave(tEncriptado)); 
+        ArrayList alSS=desConcat4a4(desQuitaClave(tEncriptado)); 
         // suma el valor que previamente ha sido restado
         desSuma(alSS); 
         String salida=DesValToString(alSS);
@@ -221,18 +222,20 @@ public class Encryptacion {
                 j++;
             }
         }
+        System.out.println("DESENCRIPTAR SIN CLAVE "+tLimpio);
         return tLimpio;
     } //quita la clave de encriptacion
-    private ArrayList desConcat3a3(String tLimpio){
+    private ArrayList desConcat4a4(String tLimpio){
         ArrayList arSS=new ArrayList();
         int i=0;
         String temp="";
-        while(i<tLimpio.length()-2){
+        while(i<tLimpio.length()-3){
             temp=String.valueOf(tLimpio.charAt(i));
             temp+=String.valueOf(tLimpio.charAt(i+1));
             temp+=String.valueOf(tLimpio.charAt(i+2));
-            arSS.add(Integer.valueOf(temp));    
-            i+=3;
+//            temp+=String.valueOf(tLimpio.charAt(i+3));
+            arSS.add(temp);    
+            i+=4;
 //            //System.out.println("concatena : "+temp);
         }     
         return arSS;
@@ -251,7 +254,8 @@ public class Encryptacion {
     
     private void algoritmoDesSuma(Numero x,int frecuencia,int posicionArray,ArrayList arSS){
         for (int i = 0; i < frecuencia && x.getNumero()<arSS.size() ; i++) {
-            arSS.set(x.getNumero(), ((int)arSS.get(x.getNumero())+this.aPatrones[posicionArray][i]));
+//            System.out.println((String)arSS.get(x.getNumero())+this.aPatrones[posicionArray][i]);
+            arSS.set(x.getNumero(), ((String)arSS.get(x.getNumero())+this.aPatrones[posicionArray][i]));
             x.setNumero(x.getNumero()+1);
         }
     }
@@ -260,7 +264,8 @@ public class Encryptacion {
         try{
             caw= new CharArrayWriter();
             for (int i = 0; i < arSS.size(); i++) {
-                caw.write((int)arSS.get(i));
+                System.out.println((String)arSS.get(i));
+                caw.write((String)arSS.get(i));
             }
         }
         catch(Exception e){
