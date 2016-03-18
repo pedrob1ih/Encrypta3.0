@@ -15,7 +15,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.math.BigInteger;
 
 public class Encryptacion {
     private int aClaves[];
@@ -150,7 +149,7 @@ public class Encryptacion {
         for (int i = 0; i < frecuencia && j.getNumero()<texto.length(); i++) {
             k=(int)texto.charAt(j.getNumero());
             k-=this.aPatrones[eles][i];
-            k+=10;
+            k+=100;
             if(k<10)//dos ceros mas 
                 outPut.setTexto(outPut.getTexto()+"000"+k);
             else if(k<100) //un cero mas
@@ -258,13 +257,14 @@ public class Encryptacion {
             int numero=Integer.parseInt((String)arSS.get(x.getNumero()))+this.aPatrones[posicionArray][i];
             String numeroRect="";
 //            System.out.println("algoritmoDesSuma-numero "+numero);
-            if(numero<10)
-                numeroRect="000"+String.valueOf(numero);
-            else if(numero<100)
-                numeroRect="00"+String.valueOf(numero);
-            else
-                numeroRect="0"+String.valueOf(numero);
-            arSS.set(x.getNumero(), numeroRect);
+//            if(numero<10)
+//                numeroRect="000"+String.valueOf(numero);
+//            else if(numero<100)
+//                numeroRect="00"+String.valueOf(numero);
+//            else
+//                numeroRect="0"+String.valueOf(numero);
+            numero-=100;
+            arSS.set(x.getNumero(), numero);
             x.setNumero(x.getNumero()+1);
         }
     }
@@ -273,8 +273,7 @@ public class Encryptacion {
         try{
             caw= new CharArrayWriter();
             for (int i = 0; i < arSS.size(); i++) {
-//                System.out.println((String)arSS.get(i));
-                caw.write((String)arSS.get(i));
+                caw.write((int)arSS.get(i));
             }
         }
         catch(Exception e){
@@ -283,7 +282,6 @@ public class Encryptacion {
         finally{
             if(caw!=null) caw.close();
         }
-//        System.out.println(caw.toString());
         return caw.toString();
     } //cambia del valor en ascii al caracter
 
