@@ -1,6 +1,6 @@
 **cambiar el array de claves privadas de [3][16] a [200][10]
 
-**revisar el metodo cambiar clave privada para que pueda tener los valores del 0 al 99
+**revisar el metodo cambiar clave privada para que pueda tener los valores del 0 al 99asAS5ASDASDASD
 
 **cambiar el sistema para hacer posible que se guarde la clave privada donde se quiera
 
