@@ -13,7 +13,7 @@ public class main {
         try {
             //        try {
             Encryptacion e= new Encryptacion("fieccch");
-            e.cambiarClaverprivada("afx");
+            e.cambiarClaverprivada("0123456789");
             String cPrivada=e.exportarClavePrivada();
             System.out.println(cPrivada);
             if(e.importarClavePrivada(cPrivada))

@@ -294,7 +294,7 @@ public class Encryptacion {
                 outPut+=aPatrones[i][j];
                 outPut+=".";
             }
-            outPut+=":\n";
+            outPut+="\n";
         }
         return outPut;
     }
@@ -302,7 +302,7 @@ public class Encryptacion {
         int j=0,k=0;
         String temp="";
         for (int i = 0; i < clave.length() && j<81; i++) {
-            if(clave.charAt(i)!='.' && clave.charAt(i)!=':' && clave.charAt(i)!='\n'){
+            if(clave.charAt(i)!='.' && clave.charAt(i)!='\n'){
                 if(temp.length()<2)
                     temp+=clave.charAt(i);
                 if(temp.length()==2){
@@ -316,6 +316,8 @@ public class Encryptacion {
                     k=0;
                     j++;
                 }
+                System.out.println(" K "+k);
+                System.out.println(" J "+j);
             }   
         }
         if(j==81 && k==9)
