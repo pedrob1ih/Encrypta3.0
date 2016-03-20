@@ -249,13 +249,6 @@ public class Encryptacion {
 //            System.out.println((String)arSS.get(x.getNumero())+this.aPatrones[posicionArray][i]);
             int numero=Integer.parseInt((String)arSS.get(x.getNumero()))+this.aPatrones[posicionArray][i];
             String numeroRect="";
-//            System.out.println("algoritmoDesSuma-numero "+numero);
-//            if(numero<10)
-//                numeroRect="000"+String.valueOf(numero);
-//            else if(numero<100)
-//                numeroRect="00"+String.valueOf(numero);
-//            else
-//                numeroRect="0"+String.valueOf(numero);
             numero-=100;
             arSS.set(x.getNumero(), numero);
             x.setNumero(x.getNumero()+1);
@@ -294,7 +287,7 @@ public class Encryptacion {
         return false;
     }
     
-    public String getClavePrivada() {
+    public String exportarClavePrivada() {
         String outPut="";
         for (int i = 0; i < aPatrones.length; i++) {
             for (int j = 0; j < aPatrones[1].length; j++) {
@@ -304,6 +297,30 @@ public class Encryptacion {
             outPut+=":\n";
         }
         return outPut;
+    }
+    public boolean importarClavePrivada(String clave) {
+        int j=0,k=0;
+        String temp="";
+        for (int i = 0; i < clave.length() && j<81; i++) {
+            if(clave.charAt(i)!='.' && clave.charAt(i)!=':' && clave.charAt(i)!='\n'){
+                if(temp.length()<2)
+                    temp+=clave.charAt(i);
+                if(temp.length()==2){
+                    aPatrones[j][k]=Integer.valueOf(temp);
+//                    System.out.println("TEMP :: "+temp);
+                    temp="";
+                    k++;
+                }
+                if(k==9){
+                    temp="";
+                    k=0;
+                    j++;
+                }
+            }   
+        }
+        if(j==81 && k==9)
+            return true;
+        return false;
     }
     private void guardarClavePrivada(){
         f.GuardaCreaFicheroClaves(aPatrones);

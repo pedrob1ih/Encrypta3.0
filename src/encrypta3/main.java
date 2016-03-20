@@ -11,44 +11,59 @@ public class main {
     
     public static void main(String[] args) {
         try {
+            //        try {
             Encryptacion e= new Encryptacion("fieccch");
+            e.cambiarClaverprivada("afx");
+            String cPrivada=e.exportarClavePrivada();
+            System.out.println(cPrivada);
+            if(e.importarClavePrivada(cPrivada))
+                System.out.println("importada correctamente");
+            System.out.println("*****************************************");
+            String cPrivada2=e.exportarClavePrivada();
+            System.out.println(cPrivada2);
             
-            String abc=abcedario();
-//            for (int i = 0; i < abc.length(); i++) {
-//                System.out.println(String.valueOf(abc.charAt(i)));
-//                e.cambiarClaverprivada(String.valueOf(abc.charAt(i)));
-//                System.out.println(e.getClavePrivada());
+            if(cPrivada.equals(cPrivada2))
+                System.out.println("son iguales");
+            
+//            String abc=abcedario();
+////            for (int i = 0; i < abc.length(); i++) {
+////                System.out.println(String.valueOf(abc.charAt(i)));
+////                e.cambiarClaverprivada(String.valueOf(abc.charAt(i)));
+////                System.out.println(e.getClavePrivada());
+////            }
+//            String clavePrivada="";
+//            String tAEncriptar="";
+//            String tEncriptado="";
+//            String tDesEncriptado="";
+//            int valorI=0;
+//
+//            for (int i = 0; i < 1000 && tAEncriptar.equals(tDesEncriptado); i++) {
+//                clavePrivada="";
+//                tAEncriptar="";
+//                tEncriptado="";
+//                clavePrivada=textoAleatorio();
+//                tAEncriptar=textoAleatorio();
+//                System.out.println("NUEVA CLAVE PRIVADA :: "+clavePrivada);
+//                e.cambiarClaverprivada(clavePrivada);
+////                System.out.println("CLAVE PRIVADA \n"+e.getClavePrivada());
+//                System.out.println("Texto a encriptar ::"+tAEncriptar);
+//                tEncriptado=e.encripta(tAEncriptar);
+//                System.out.println("Texto encriptado ::"+tEncriptado);
+//                tDesEncriptado=e.desencripta(tEncriptado);
+//                System.out.println("Texto desEncriptado ::"+tDesEncriptado);
+//                valorI=i;
 //            }
-            String clavePrivada="";
-            String tAEncriptar="";
-            String tEncriptado="";
-            String tDesEncriptado="";
-            int valorI=0;
-
-            for (int i = 0; i < 1000 && tAEncriptar.equals(tDesEncriptado); i++) {
-                clavePrivada="";
-                tAEncriptar="";
-                tEncriptado="";
-                clavePrivada=textoAleatorio();
-                tAEncriptar=textoAleatorio();
-                System.out.println("NUEVA CLAVE PRIVADA :: "+clavePrivada);
-                e.cambiarClaverprivada(clavePrivada);
-//                System.out.println("CLAVE PRIVADA \n"+e.getClavePrivada());
-                System.out.println("Texto a encriptar ::"+tAEncriptar);
-                tEncriptado=e.encripta(tAEncriptar);
-                System.out.println("Texto encriptado ::"+tEncriptado);
-                tDesEncriptado=e.desencripta(tEncriptado);
-                System.out.println("Texto desEncriptado ::"+tDesEncriptado);
-                valorI=i;
-            }
-            System.out.println("*******************************************************************");
-            System.out.println("NUEVA CLAVE PRIVADA :: "+clavePrivada);
-            System.out.println("Texto a encriptar ::"+tAEncriptar);
-            System.out.println("Texto encriptado ::"+tEncriptado);
-            System.out.println("Texto desEncriptado ::"+tDesEncriptado);
-            System.out.println("valor de i "+valorI);
-        } 
-        catch (Exception ex) {
+//            System.out.println("*******************************************************************");
+//            System.out.println("NUEVA CLAVE PRIVADA :: "+clavePrivada);
+//            System.out.println("Texto a encriptar ::"+tAEncriptar);
+//            System.out.println("Texto encriptado ::"+tEncriptado);
+//            System.out.println("Texto desEncriptado ::"+tDesEncriptado);
+//            System.out.println("valor de i "+valorI);
+//        } 
+//        catch (Exception ex) {
+//            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        } catch (Exception ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
