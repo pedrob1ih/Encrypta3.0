@@ -1,8 +1,18 @@
-**cambiar el array de claves privadas de [3][16] a [200][10]
+**cambiar el array de claves privadas de [3][16] a [81][9]****
 
-**revisar el metodo cambiar clave privada para que pueda tener los valores del 0 al 99asAS5ASDASDASD
+**revisar el metodo cambiar clave privada para que pueda tener los valores del 0 al 99**
 
 **cambiar el sistema para hacer posible que se guarde la clave privada donde se quiera
+
+
+
+
+
+
+
+
+
+
 
 **cambio del motor
 hay una clave privada
