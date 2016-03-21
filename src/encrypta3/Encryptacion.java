@@ -1,7 +1,5 @@
 package encrypta3;
 
-import Modelo.Numero;
-import Modelo.Texto;
 import java.io.CharArrayReader;
 import java.io.CharArrayWriter;
 import java.util.ArrayList;
@@ -313,4 +311,34 @@ public class Encryptacion {
             return true;
         return false;
     }    
+}
+
+class Numero {
+    private int numero;
+
+    public Numero(int numero) {
+        this.numero = numero;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+}class Texto {
+    private String texto;
+
+    public Texto(String texto) {
+        this.texto = texto;
+    }
+
+    public String getTexto() {
+        return texto;
+    }
+
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
 }
