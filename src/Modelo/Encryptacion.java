@@ -300,7 +300,7 @@ public class Encryptacion {
                     temp="";
                     k++;
                 }
-                if(k==9){
+                if(k==10){
                     temp="";
                     k=0;
                     j++;
