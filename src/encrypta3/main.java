@@ -14,17 +14,17 @@ public class main {
             //        try {
             Encryptacion e= new Encryptacion("fieccch");
 
-//            e.setPrivateKey("0123456789");
-//            String cPrivada=e.exportarClavePrivada();
-//            System.out.println(cPrivada);
-//            if(e.importarClavePrivada(cPrivada))
-//                System.out.println("importada correctamente");
-//            System.out.println("*****************************************");
-//            String cPrivada2=e.exportarClavePrivada();
-//            System.out.println(cPrivada2);
-//            
-//            if(cPrivada.equals(cPrivada2))
-//                System.out.println("son iguales");
+            e.setPrivateKey("0123456789");
+            String cPrivada=e.exportPrivateKey();
+            System.out.println(cPrivada);
+            if(e.importPrivateKey(cPrivada))
+                System.out.println("importada correctamente");
+            System.out.println("*****************************************");
+            String cPrivada2=e.exportPrivateKey();
+            System.out.println(cPrivada2);
+            
+            if(cPrivada.equals(cPrivada2))
+                System.out.println("son iguales");
             
 //            String abc=abcedario();
 ////            for (int i = 0; i < abc.length(); i++) {

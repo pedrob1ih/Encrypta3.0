@@ -302,16 +302,14 @@ public class Encryptacion {
                     temp="";
                     k++;
                 }
-                if(k==9){
+                if(k==10){
                     temp="";
                     k=0;
                     j++;
                 }
-                System.out.println(" K "+k);
-                System.out.println(" J "+j);
             }   
         }
-        if(j==81 && k==9)
+        if(j==81 && k==0)
             return true;
         return false;
     }    
