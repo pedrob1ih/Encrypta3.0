@@ -241,7 +241,6 @@ public class Encryptacion {
     private void algoritmoDesSuma(Numero x,int frecuencia,int posicionArray,ArrayList arSS){
         for (int i = 0; i < frecuencia && x.getNumero()<arSS.size() ; i++) {
             int numero=Integer.parseInt((String)arSS.get(x.getNumero()))+this.aCPrivada[posicionArray][i];
-            String numeroRect="";
             numero-=100;
             arSS.set(x.getNumero(), numero);
             x.setNumero(x.getNumero()+1);
