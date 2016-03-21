@@ -121,7 +121,8 @@ public class CambiarClavesJPanel extends javax.swing.JPanel {
     private void GuardarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarjButtonActionPerformed
         try{
             this.e.setPrivateKey(this.cajaDeTextojTextArea.getText());
-            this.f.GuardaCreaFicheroClaves(this.cajaDeTextojTextArea.getText());
+            this.f.savePrivateKey(e.exportPrivateKey());
+            
         }
         catch(Exception e){
             this.cajaDeTextojTextArea.setText(e.getMessage());

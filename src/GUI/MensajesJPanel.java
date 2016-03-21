@@ -2,6 +2,8 @@ package GUI;
 
 import Modelo.Encryptacion;
 import Modelo.Fichero;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class MensajesJPanel extends javax.swing.JPanel {
@@ -18,9 +20,15 @@ public class MensajesJPanel extends javax.swing.JPanel {
     }
     
     public void mostrar(){
-        this.TASalida.setText("");
-        this.TAEntradaUsuarioj.setText("");
-        this.setVisible(true);
+        try {
+            this.TASalida.setText("");
+            this.TAEntradaUsuarioj.setText("");
+            this.setVisible(true);
+            if(!(this.e.exportPrivateKey().equals(f.getPrivateKey())))
+                e.importPrivateKey(f.getPrivateKey());
+        } catch (Exception ex) {
+            Logger.getLogger(MensajesJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -120,7 +128,7 @@ public class MensajesJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_convertirJButtonActionPerformed
 
     private void BGuardarFicheroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BGuardarFicheroActionPerformed
-        f.guardaFicheroEncriptado("FicheroDePrueva", this.TASalida.getText());
+        f.saveFile("FicheroDePrueva", this.TASalida.getText());
     }//GEN-LAST:event_BGuardarFicheroActionPerformed
 
 

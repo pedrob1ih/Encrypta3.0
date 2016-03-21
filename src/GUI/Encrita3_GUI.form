@@ -4,18 +4,6 @@
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="ArchivoMBar">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Archivo"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="SalirOp">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Salir"/>
-              </Properties>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
         <Menu class="javax.swing.JMenu" name="opcionMBar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Opcion"/>
@@ -49,7 +37,7 @@
     </Property>
     <Property name="focusCycleRoot" type="boolean" value="false"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[5, 5]"/>
+      <Dimension value="[700, 500]"/>
     </Property>
   </Properties>
   <SyntheticProperties>

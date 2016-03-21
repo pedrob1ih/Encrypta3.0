@@ -18,11 +18,11 @@ public class Encrita3_GUI extends javax.swing.JFrame {
         try {
             initComponents();
             f= new Fichero("fichero.dat");
-            e= new Encryptacion(f.leeFicheroClaves());
+            e= new Encryptacion(f.getPrivateKey());
         } catch (Exception ex) {
             try {
-                f.GuardaCreaFicheroClaves("Default");
-                e= new Encryptacion(f.leeFicheroClaves());
+                f.savePrivateKey("Default");
+                e= new Encryptacion(f.getPrivateKey());
             } catch (IOException ex1) {
                 Logger.getLogger(Encrita3_GUI.class.getName()).log(Level.SEVERE, null, ex1);
             } catch (Exception ex1) {
@@ -47,8 +47,6 @@ public class Encrita3_GUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuBar1 = new javax.swing.JMenuBar();
-        ArchivoMBar = new javax.swing.JMenu();
-        SalirOp = new javax.swing.JMenuItem();
         opcionMBar = new javax.swing.JMenu();
         MensajesOp = new javax.swing.JMenuItem();
         CClavesOp = new javax.swing.JMenuItem();
@@ -56,15 +54,8 @@ public class Encrita3_GUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setFocusCycleRoot(false);
-        setMinimumSize(new java.awt.Dimension(5, 5));
+        setMinimumSize(new java.awt.Dimension(700, 500));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
-
-        ArchivoMBar.setText("Archivo");
-
-        SalirOp.setText("Salir");
-        ArchivoMBar.add(SalirOp);
-
-        jMenuBar1.add(ArchivoMBar);
 
         opcionMBar.setText("Opcion");
 
@@ -146,10 +137,8 @@ public class Encrita3_GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu ArchivoMBar;
     private javax.swing.JMenuItem CClavesOp;
     private javax.swing.JMenuItem MensajesOp;
-    private javax.swing.JMenuItem SalirOp;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu opcionMBar;
     // End of variables declaration//GEN-END:variables

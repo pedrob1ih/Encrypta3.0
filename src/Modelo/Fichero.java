@@ -18,7 +18,7 @@ public class Fichero {
     }
     //CREACION O LECTURA DEL FICHERO ALEATORIO E INSERCION DE ARRAYS
     
-    public void GuardaCreaFicheroClaves(String privateKey) throws IOException{        
+    public void savePrivateKey(String privateKey) throws IOException{        
         FileOutputStream fos=null;
         DataOutputStream dos=null;
         try{
@@ -41,7 +41,7 @@ public class Fichero {
             }
         }            
     }
-    public String leeFicheroClaves() throws Exception{
+    public String getPrivateKey() throws Exception{
         File f=null;
         FileInputStream fis=null;
         DataInputStream dis=null;
@@ -75,7 +75,7 @@ public class Fichero {
         return output;
     }
 
-    public void guardaFicheroEncriptado(String nombreFichero,String texto){
+    public void saveFile(String nombreFichero,String texto){
         FileOutputStream fos=null;
         DataOutputStream dos=null;
         try{
@@ -99,7 +99,7 @@ public class Fichero {
         }            
     }
     
-    public String cargaFicheroEncriptado(String nombreFichero){
+    public String loadFile(String nombreFichero){
         File f=null;
         FileInputStream fis=null;
         DataInputStream dis=null;
