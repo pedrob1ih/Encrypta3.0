@@ -31,7 +31,7 @@ public class Encrita3_GUI extends javax.swing.JFrame {
         }
         mensJP=new MensajesJPanel(e,f);
         add(mensJP);
-        mensJP.setVisible(false);
+        mensJP.setVisible(true);
         cClavesJP=new CambiarClavesJPanel(e,f);
         add(cClavesJP);
         cClavesJP.setVisible(false);
