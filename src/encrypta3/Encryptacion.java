@@ -7,30 +7,25 @@ import java.io.CharArrayWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.EOFException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class Encryptacion {
-    private int aClaves[];
-    private int[][] aPatrones;
-    private Fichero f;
-    private String nombreFicheroClavePrivada;
+    private int aClavePublica[];
+    private int[][] aCPrivada;
     private int multiplicacion,lAA,lAB,lAC,fA,fB,fC;
     private String stringDRemplazo;
     
-    public Encryptacion(String nombreFicheroClavePrivada) {
-        this.aClaves=new int[3];
-        this.aPatrones=new int[81][10];
-        this.nombreFicheroClavePrivada=nombreFicheroClavePrivada;
-        this.f= new Fichero(this.nombreFicheroClavePrivada);
-        leerClavePrivada();
+    public Encryptacion(String cPrivada) {
+        this.aClavePublica=new int[3];
+        this.aCPrivada=new int[81][10];
         this.stringDRemplazo="12345678900%/";
+        this.setPrivateKey(cPrivada);
+    }
+    public Encryptacion(String cPrivada,String stringRemplazo) {
+        this.aClavePublica=new int[3];
+        this.aCPrivada=new int[81][10];
+        this.stringDRemplazo=stringRemplazo;
+        this.setPrivateKey(cPrivada);
     }
     //metodos que no se usan
     private static String toCharrr(String mensaje){
@@ -72,9 +67,9 @@ public class Encryptacion {
     }
 
     //generacion de la clave privada a partir de una cadena de texto
-    public void cambiarClaverprivada(String texto) throws Exception{
+    public boolean setPrivateKey(String texto) {
         if(texto.equals(""))
-            throw new Exception("Error Clave privada vacia");
+            return false;
         else{
             for (int i = 0; i < 10; i++) {
                 texto+=texto;
@@ -82,44 +77,44 @@ public class Encryptacion {
             CharArrayReader car=null;
             try{
                 car= new CharArrayReader(texto.toCharArray());
-                for (int i = 0; i < aPatrones.length; i++) {
-                    for (int j = 0; j < aPatrones[1].length; j++) {
+                for (int i = 0; i < aCPrivada.length; i++) {
+                    for (int j = 0; j < aCPrivada[1].length; j++) {
                         int valor=car.read();
                         if(valor<32)
-                            throw new Exception("Error al generar la calve, tiene que usar caracteres entre 0 y 128");
+                            return false;
                         else
                             valor=valor-32;
                         while (valor >99)
                             valor-=100;
-                        this.aPatrones[i][j]=valor;
+                        this.aCPrivada[i][j]=valor;
                     }
                 }
             }
             catch(IOException e){
-                throw new Exception("fallo al generar");
+                return false;
             }
             finally{
                 if(car!=null) car.close();
             }
-            guardarClavePrivada();
         }
+        return true;
     }
     
     
     //ELECCION DE CLAVE 
     private void generaClavepublica(){
         Random r=new Random();
-        for(int i=0;i<aClaves.length;i++)
+        for(int i=0;i<aClavePublica.length;i++)
             //genera una clave q hace posible la desencriptacion
-            aClaves[i]=r.nextInt(9)+1;
+            aClavePublica[i]=r.nextInt(9)+1;
     }
     //ENCRIPTACION
     public String encripta(String texto){
         this.generaClavepublica();
         texto=texto.replace("\n", stringDRemplazo);
-        this.fA=this.aClaves[0];
-        this.fB=this.aClaves[1];
-        this.fC=this.aClaves[2];
+        this.fA=this.aClavePublica[0];
+        this.fB=this.aClavePublica[1];
+        this.fC=this.aClavePublica[2];
         this.multiplicacion=fA*fB*fC;
         this.lAA=multiplicacion/fA;
         this.lAB=multiplicacion/fB;
@@ -141,14 +136,13 @@ public class Encryptacion {
             algoritmoRestaStrMas0(j, fB,lAB, texto, outPut);
             algoritmoRestaStrMas0(j, fC,lAC, texto, outPut);
         }      
-//        System.out.println(outPut.getTexto());
         return outPut.getTexto();
     }   //resta valor ascii
     private void algoritmoRestaStrMas0(Numero j,int frecuencia,int eles,String texto,Texto outPut){
         int k=0;
         for (int i = 0; i < frecuencia && j.getNumero()<texto.length(); i++) {
             k=(int)texto.charAt(j.getNumero());
-            k-=this.aPatrones[eles][i];
+            k-=this.aCPrivada[eles][i];
             k+=100;
             if(k<10)//dos ceros mas 
                 outPut.setTexto(outPut.getTexto()+"000"+k);
@@ -162,33 +156,27 @@ public class Encryptacion {
         }
     }
     private String enInsertaClave(String texto){
-//        System.out.println("ENCRIPTAR SIN CLAVE "+texto);
         String outPut="";
-        //la clave de descifre se coloca en la primera pos , la tercera y la ultima
-        //1 23 1 2 3123
-//        //System.out.println("clave 1 : "+this.aClaves[0]);
-//        //System.out.println("clave 2 : "+this.aClaves[1]);
-//        //System.out.println("clave 3 : "+this.aClaves[2]);
-        texto=this.aClaves[0]+texto; //insercion de la primera clave
+        texto=this.aClavePublica[0]+texto; //insercion de la primera clave
         
         for (int i = 0; i < 3; i++) 
         outPut=outPut+texto.toCharArray()[i]; // se añade la primera clave mas dos caracteres del texto
         
-        outPut=outPut+this.aClaves[1]; // se añade la segunda clave al texto en la tercera posicion
+        outPut=outPut+this.aClavePublica[1]; // se añade la segunda clave al texto en la tercera posicion
         
         for (int i = 3; i <texto.toCharArray().length ; i++) 
         outPut=outPut+texto.toCharArray()[i];
         
-        outPut=outPut+this.aClaves[2]; // se pasa la tercera clave al texto 
+        outPut=outPut+this.aClavePublica[2]; // se pasa la tercera clave al texto 
         return outPut;
     }   //ADDICION DE LA CLAVE
      
     //DESENCRIPTACION
-    public String desencripta(String tEncriptado) throws Exception{
+    public String unEncripta(String tEncriptado) throws Exception{
         
-        this.fA=this.aClaves[0];
-        this.fB=this.aClaves[1];
-        this.fC=this.aClaves[2];
+        this.fA=this.aClavePublica[0];
+        this.fB=this.aClavePublica[1];
+        this.fC=this.aClavePublica[2];
         this.multiplicacion=fA*fB*fC;
         this.lAA=multiplicacion/fA;
         this.lAB=multiplicacion/fB;
@@ -216,7 +204,7 @@ public class Encryptacion {
                 tLimpio=tLimpio+tEncriptado.charAt(i);
             }    
             else{   
-                aClaves[j]=Integer.parseInt(String.valueOf(tEncriptado.charAt(i)));
+                aClavePublica[j]=Integer.parseInt(String.valueOf(tEncriptado.charAt(i)));
 //                //System.out.println("desQuitaClave = "+aClaves[j]);
                 j++;
             }
@@ -249,20 +237,11 @@ public class Encryptacion {
             algoritmoDesSuma(x, fB, lAB, arSS);
             algoritmoDesSuma(x, fC, lAC, arSS);
         }
-    } //suma el valor en ascii
-    
+    } //suma el valor en ascii  
     private void algoritmoDesSuma(Numero x,int frecuencia,int posicionArray,ArrayList arSS){
         for (int i = 0; i < frecuencia && x.getNumero()<arSS.size() ; i++) {
-//            System.out.println((String)arSS.get(x.getNumero())+this.aPatrones[posicionArray][i]);
-            int numero=Integer.parseInt((String)arSS.get(x.getNumero()))+this.aPatrones[posicionArray][i];
+            int numero=Integer.parseInt((String)arSS.get(x.getNumero()))+this.aCPrivada[posicionArray][i];
             String numeroRect="";
-//            System.out.println("algoritmoDesSuma-numero "+numero);
-//            if(numero<10)
-//                numeroRect="000"+String.valueOf(numero);
-//            else if(numero<100)
-//                numeroRect="00"+String.valueOf(numero);
-//            else
-//                numeroRect="0"+String.valueOf(numero);
             numero-=100;
             arSS.set(x.getNumero(), numero);
             x.setNumero(x.getNumero()+1);
@@ -301,199 +280,40 @@ public class Encryptacion {
         return false;
     }
     
-    public String getClavePrivada() {
+    public String exportPrivateKey() {
         String outPut="";
-        for (int i = 0; i < aPatrones.length; i++) {
-            for (int j = 0; j < aPatrones[1].length; j++) {
-                outPut+=aPatrones[i][j];
+        for (int i = 0; i < aCPrivada.length; i++) {
+            for (int j = 0; j < aCPrivada[1].length; j++) {
+                outPut+=aCPrivada[i][j];
                 outPut+=".";
             }
-            outPut+=":\n";
+            outPut+="\n";
         }
         return outPut;
     }
-    private void guardarClavePrivada(){
-        f.GuardaCreaFicheroClaves(aPatrones);
-    }
-    private void leerClavePrivada(){
-        f.leeFicheroClaves(aPatrones);
-    }
-    public void guardarFichero(String nFichero,String texto){
-        f.guardaFicheroTexto(nFichero,texto);
-    }
-    public String cargarFichero(String nFichero){
-        return f.cargaFicheroTexto(nFichero);
-    }
-    
-    //GETTERS & SETTERS
-
-    public String getNombreFicheroClavesPrivadas() {
-        return nombreFicheroClavePrivada;
-    }
-}
-
-
-class Fichero {
-    private String nombreFichero;
-
-    public Fichero(String nombreFichero) {
-        this.nombreFichero = nombreFichero;
-    }
-    //CREACION O LECTURA DEL FICHERO ALEATORIO E INSERCION DE ARRAYS
-    
-    public void GuardaCreaFicheroClaves(int aNumEm[][]){
-        //generacionn de un fichero con numeros aleatorio entre 0 y 90 separados por '.'
-        
-        FileOutputStream fos=null;
-        DataOutputStream dos=null;
-        try{
-            fos = new FileOutputStream(this.nombreFichero);
-            dos = new DataOutputStream(fos);
-            for (int i = 0; i < aNumEm.length; i++) {
-                dos.writeChar('.');
-                for (int j = 0; j < aNumEm[1].length; j++) {
-                    dos.writeInt(aNumEm[i][j]);
+    public boolean importPrivateKey(String clave) {
+        int j=0,k=0;
+        String temp="";
+        for (int i = 0; i < clave.length() && j<81; i++) {
+            if(clave.charAt(i)!='.' && clave.charAt(i)!='\n'){
+                if(temp.length()<2)
+                    temp+=clave.charAt(i);
+                if(temp.length()==2){
+                    aCPrivada[j][k]=Integer.valueOf(temp);
+                    temp="";
+                    k++;
                 }
-            }
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
-        finally{
-            try{
-                if (dos!=null) dos.close();
-                if (fos!=null) fos.close();
-            }
-            catch(IOException e){
-                e.printStackTrace();
-            }
-        }            
-    }
-    public void leeFicheroClaves(int aNumEm[][]){
-        File f=null;
-        FileInputStream fis=null;
-        DataInputStream dis=null;
-        try{
-            f=new File(this.nombreFichero);
-            if (f.exists()) {
-                fis=new FileInputStream(f);
-                dis=new DataInputStream(fis);
-                int i=0;
-                while (true) {    
-                    dis.readChar();
-                    for (int j = 0; j < aNumEm[1].length; j++) {
-                        aNumEm[i][j]=dis.readInt();
-                    }
-                    i++;
+                if(k==9){
+                    temp="";
+                    k=0;
+                    j++;
                 }
-            }
+                System.out.println(" K "+k);
+                System.out.println(" J "+j);
+            }   
         }
-        catch (EOFException eof) { //...
-        }
-        catch (FileNotFoundException fnf) { //...
-            
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        finally {
-            try {
-            if (dis!=null) dis.close();
-            if (fis!=null) fis.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    
-    public void guardaFicheroTexto(String nombreFichero,String texto){
-        FileOutputStream fos=null;
-        DataOutputStream dos=null;
-        try{
-            fos = new FileOutputStream(nombreFichero);
-            dos = new DataOutputStream(fos);
-            for (int i = 0; i < texto.length(); i++) {
-                dos.writeChar(texto.charAt(i));
-            }
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
-        finally{
-            try{
-                if (dos!=null) dos.close();
-                if (fos!=null) fos.close();
-            }
-            catch(IOException e){
-                e.printStackTrace();
-            }
-        }            
-    }
-    
-    public String cargaFicheroTexto(String nombreFichero){
-        File f=null;
-        FileInputStream fis=null;
-        DataInputStream dis=null;
-        String outPut="";
-        try{
-            f=new File(nombreFichero);
-            if (f.exists()) {
-                fis=new FileInputStream(f);
-                dis=new DataInputStream(fis);
-                while (true) {    
-                    outPut+=dis.readChar();
-                }
-            }
-        }
-        catch (EOFException eof) { //...
-        }
-        catch (FileNotFoundException fnf) { //...
-            
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        finally {
-            try {
-            if (dis!=null) dis.close();
-            if (fis!=null) fis.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return outPut;
-    }
-    public String cargaFicheroEncriptado(File archivo){
-        File f=null;
-        FileInputStream fis=null;
-        DataInputStream dis=null;
-        String outPut="";
-        try{
-            f=archivo;
-            if (f.exists()) {
-                fis=new FileInputStream(f);
-                dis=new DataInputStream(fis);
-                while (true) {    
-                    outPut+=dis.readChar();
-                }
-            }
-        }
-        catch (EOFException eof) { //...
-        }
-        catch (FileNotFoundException fnf) { //...
-            
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        finally {
-            try {
-            if (dis!=null) dis.close();
-            if (fis!=null) fis.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return outPut;
-    }
+        if(j==81 && k==9)
+            return true;
+        return false;
+    }    
 }
