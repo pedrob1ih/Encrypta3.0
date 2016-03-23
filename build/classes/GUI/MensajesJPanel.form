@@ -77,7 +77,7 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="copiarEntrada">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Copiar"/>
+        <Property name="text" type="java.lang.String" value="Copy"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="copiarEntradaActionPerformed"/>
@@ -85,7 +85,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="pegarEntrada">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Pegar"/>
+        <Property name="text" type="java.lang.String" value="Paste"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pegarEntradaActionPerformed"/>
@@ -93,12 +93,12 @@
     </Component>
     <Component class="javax.swing.JButton" name="cargarFichero">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cargar Fichero"/>
+        <Property name="text" type="java.lang.String" value="Load file"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="bGuardarEnFichero">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Guardar En Fichero"/>
+        <Property name="text" type="java.lang.String" value="Save file"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bGuardarEnFicheroActionPerformed"/>
@@ -125,7 +125,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="convertirJButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Convertir"/>
+        <Property name="text" type="java.lang.String" value="Cypher"/>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[5, 5]"/>
         </Property>
@@ -155,7 +155,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="copiarEntrada1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Copiar"/>
+        <Property name="text" type="java.lang.String" value="Copy"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="copiarEntrada1ActionPerformed"/>
@@ -163,7 +163,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="pegarEntrada1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Pegar"/>
+        <Property name="text" type="java.lang.String" value="paste"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pegarEntrada1ActionPerformed"/>

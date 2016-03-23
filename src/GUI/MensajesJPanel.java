@@ -61,23 +61,23 @@ public class MensajesJPanel extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(700, 500));
         setPreferredSize(new java.awt.Dimension(650, 480));
 
-        copiarEntrada.setText("Copiar");
+        copiarEntrada.setText("Copy");
         copiarEntrada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 copiarEntradaActionPerformed(evt);
             }
         });
 
-        pegarEntrada.setText("Pegar");
+        pegarEntrada.setText("Paste");
         pegarEntrada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pegarEntradaActionPerformed(evt);
             }
         });
 
-        cargarFichero.setText("Cargar Fichero");
+        cargarFichero.setText("Load file");
 
-        bGuardarEnFichero.setText("Guardar En Fichero");
+        bGuardarEnFichero.setText("Save file");
         bGuardarEnFichero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bGuardarEnFicheroActionPerformed(evt);
@@ -90,7 +90,7 @@ public class MensajesJPanel extends javax.swing.JPanel {
         TAEntradaUsuarioj.setMinimumSize(new java.awt.Dimension(5, 5));
         jScrollPane0.setViewportView(TAEntradaUsuarioj);
 
-        convertirJButton.setText("Convertir");
+        convertirJButton.setText("Cypher");
         convertirJButton.setMinimumSize(new java.awt.Dimension(5, 5));
         convertirJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,14 +104,14 @@ public class MensajesJPanel extends javax.swing.JPanel {
         TASalida.setMinimumSize(new java.awt.Dimension(5, 5));
         jScrollPane1.setViewportView(TASalida);
 
-        copiarEntrada1.setText("Copiar");
+        copiarEntrada1.setText("Copy");
         copiarEntrada1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 copiarEntrada1ActionPerformed(evt);
             }
         });
 
-        pegarEntrada1.setText("Pegar");
+        pegarEntrada1.setText("paste");
         pegarEntrada1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pegarEntrada1ActionPerformed(evt);

@@ -6,12 +6,12 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="opcionMBar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Opcion"/>
+            <Property name="text" type="java.lang.String" value="Option"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="MensajesOp">
               <Properties>
-                <Property name="text" type="java.lang.String" value="MensajesPanel"/>
+                <Property name="text" type="java.lang.String" value="Message panel"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="OpcionActionPerformed"/>
@@ -19,7 +19,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="CClavesOp">
               <Properties>
-                <Property name="text" type="java.lang.String" value="CambiarClavesPanel"/>
+                <Property name="text" type="java.lang.String" value="Change password"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="OpcionActionPerformed"/>

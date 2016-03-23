@@ -2,6 +2,10 @@ package GUI;
 
 import Modelo.Encryptacion;
 import Modelo.Fichero;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CambiarClavesJPanel extends javax.swing.JPanel {
 
@@ -10,14 +14,48 @@ public class CambiarClavesJPanel extends javax.swing.JPanel {
     
     public CambiarClavesJPanel(Encryptacion e,Fichero f) {
         initComponents();
+        this.cajaDeTextojTextArea.addMouseListener(cDTMListener);
         this.e= e;
         this.f=f;
         cajaDeTextojTextArea.setLineWrap(true);
     }
+    MouseListener cDTMListener=new MouseListener() {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            cajaDeTextojTextArea.setText("");
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            cajaDeTextojTextArea.setText("");
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            ;
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            ;
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            ;
+        }
+    };
     
     public void mostrar(){
-        this.cajaDeTextojTextArea.setText("");
-        this.setVisible(true);
+        try {
+            this.cajaDeTextojTextArea.setText("");
+            if(!(this.e.exportPrivateKey().equals(f.getPrivateKey())))
+                e.importPrivateKey(f.getPrivateKey());
+            this.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(CambiarClavesJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     /**
@@ -44,14 +82,14 @@ public class CambiarClavesJPanel extends javax.swing.JPanel {
         cajaDeTextojTextArea.setRows(5);
         MuestraClavejScrollPane.setViewportView(cajaDeTextojTextArea);
 
-        GuardarjButton.setText("Guardar");
+        GuardarjButton.setText("Save");
         GuardarjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GuardarjButtonActionPerformed(evt);
             }
         });
 
-        VerPatronjButton.setText("verPatron");
+        VerPatronjButton.setText("See pattern");
         VerPatronjButton.setMaximumSize(new java.awt.Dimension(71, 23));
         VerPatronjButton.setMinimumSize(new java.awt.Dimension(71, 23));
         VerPatronjButton.setPreferredSize(new java.awt.Dimension(100, 23));
@@ -61,7 +99,7 @@ public class CambiarClavesJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel5.setText("CambiarClaves");
+        jLabel5.setText("Change private key");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -70,27 +108,27 @@ public class CambiarClavesJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(MuestraClavejScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                        .addGap(194, 194, 194)
+                        .addComponent(VerPatronjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(416, 416, 416)
-                        .addComponent(GuardarjButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(VerPatronjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(GuardarjButton)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(4, 4, 4)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(MuestraClavejScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GuardarjButton)
+                    .addComponent(jLabel5)
                     .addComponent(VerPatronjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(MuestraClavejScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GuardarjButton)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -98,7 +136,9 @@ public class CambiarClavesJPanel extends javax.swing.JPanel {
     private void GuardarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarjButtonActionPerformed
         try{
             this.e.setPrivateKey(this.cajaDeTextojTextArea.getText());
-            this.f.savePrivateKey(e.exportPrivateKey());
+            String clave=e.exportPrivateKey();
+            this.f.savePrivateKey(clave);
+            this.cajaDeTextojTextArea.setText(clave);
             
         }
         catch(Exception e){

@@ -57,9 +57,9 @@ public class Encrita3_GUI extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(700, 500));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
-        opcionMBar.setText("Opcion");
+        opcionMBar.setText("Option");
 
-        MensajesOp.setText("MensajesPanel");
+        MensajesOp.setText("Message panel");
         MensajesOp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 OpcionActionPerformed(evt);
@@ -67,7 +67,7 @@ public class Encrita3_GUI extends javax.swing.JFrame {
         });
         opcionMBar.add(MensajesOp);
 
-        CClavesOp.setText("CambiarClavesPanel");
+        CClavesOp.setText("Change password");
         CClavesOp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 OpcionActionPerformed(evt);
@@ -85,12 +85,10 @@ public class Encrita3_GUI extends javax.swing.JFrame {
     private void OpcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpcionActionPerformed
         ocultarPaneles();
         switch (evt.getActionCommand()) {
-            case "MensajesPanel": 
-                ocultarPaneles();
+            case "Message panel": 
                 mensJP.mostrar();
                 break;
-            case "CambiarClavesPanel": 
-                ocultarPaneles();
+            case "Change password": 
                 cClavesJP.mostrar();
                 break;
         }
