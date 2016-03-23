@@ -2,6 +2,13 @@ package GUI;
 
 import Modelo.Encryptacion;
 import Modelo.Fichero;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -62,6 +69,11 @@ public class MensajesJPanel extends javax.swing.JPanel {
         });
 
         pegarEntrada.setText("Pegar");
+        pegarEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pegarEntradaActionPerformed(evt);
+            }
+        });
 
         cargarFichero.setText("Cargar Fichero");
 
@@ -93,8 +105,18 @@ public class MensajesJPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(TASalida);
 
         copiarEntrada1.setText("Copiar");
+        copiarEntrada1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                copiarEntrada1ActionPerformed(evt);
+            }
+        });
 
         pegarEntrada1.setText("Pegar");
+        pegarEntrada1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pegarEntrada1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -168,8 +190,46 @@ public class MensajesJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_bGuardarEnFicheroActionPerformed
 
     private void copiarEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copiarEntradaActionPerformed
-        // TODO add your handling code here:
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        StringSelection data = new StringSelection(this.TAEntradaUsuarioj.getText());
+        clipboard.setContents(data, data);
     }//GEN-LAST:event_copiarEntradaActionPerformed
+
+    private void copiarEntrada1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copiarEntrada1ActionPerformed
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        StringSelection data = new StringSelection(this.TASalida.getText());
+        clipboard.setContents(data, data);
+    }//GEN-LAST:event_copiarEntrada1ActionPerformed
+
+    private void pegarEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pegarEntradaActionPerformed
+        Clipboard portapapeles=Toolkit.getDefaultToolkit().getSystemClipboard();
+        Transferable datos=portapapeles.getContents(null);
+        if(datos.isDataFlavorSupported(DataFlavor.stringFlavor)){
+            try {
+                TAEntradaUsuarioj.setText(""+datos.getTransferData(DataFlavor.stringFlavor));
+            } catch (UnsupportedFlavorException e) {
+             e.printStackTrace();
+            } catch (IOException e) {
+
+             e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_pegarEntradaActionPerformed
+
+    private void pegarEntrada1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pegarEntrada1ActionPerformed
+        Clipboard portapapeles=Toolkit.getDefaultToolkit().getSystemClipboard();
+        Transferable datos=portapapeles.getContents(null);
+        if(datos.isDataFlavorSupported(DataFlavor.stringFlavor)){
+            try {
+                TASalida.setText(""+datos.getTransferData(DataFlavor.stringFlavor));
+            } catch (UnsupportedFlavorException e) {
+             e.printStackTrace();
+            } catch (IOException e) {
+
+             e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_pegarEntrada1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

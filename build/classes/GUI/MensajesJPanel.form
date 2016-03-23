@@ -87,6 +87,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Pegar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pegarEntradaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="cargarFichero">
       <Properties>
@@ -154,11 +157,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Copiar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="copiarEntrada1ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="pegarEntrada1">
       <Properties>
         <Property name="text" type="java.lang.String" value="Pegar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pegarEntrada1ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
